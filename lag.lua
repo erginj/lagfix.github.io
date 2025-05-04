@@ -1,23 +1,27 @@
 local runtimeItems = workspace:FindFirstChild("RuntimeItems")
 if runtimeItems then
     local maximgun = runtimeItems:FindFirstChild("Maximgun")
-    if maximgun and maximgun:IsA("BasePart") then
-        maximgun.Anchored = false
-        print("Maximgun has been unanchored!")
-    elseif maximgun and maximgun:IsA("Model") then
-        for _, part in ipairs(maximgun:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.Anchored = false
+    
+    if maximgun then
+        if maximgun:IsA("BasePart") then
+            maximgun.Anchored = false
+            print("Maximgun (BasePart) has been unanchored!")
+        elseif maximgun:IsA("Model") or maximgun:IsA("Tool") or maximgun:IsA("Accessory") or maximgun:IsA("Folder") then
+            for _, part in ipairs(maximgun:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.Anchored = false
+                end
             end
+            print("All parts inside Maximgun have been unanchored!")
+        else
+            print("Maximgun exists but is not a BasePart, Model, Tool, Accessory, or Folder. It is a:", maximgun.ClassName)
         end
-        print("All parts of Maximgun have been unanchored!")
     else
-        print("Maximgun found but is not a BasePart or Model.")
+        print("Maximgun not found.")
     end
 else
-    print("RuntimeItems folder not found!")
+    print("RuntimeItems folder not found.")
 end
-
 
 
 _G.Settings = {
